@@ -1,0 +1,14 @@
+input {
+    margin-top: 16px;
+    padding: 4px; 
+}
+
+button {
+    background-color: lightblue;
+    padding: 4px;
+    width: 64px;
+}
+
+.buttons {
+    margin-top: 16px;
+}
