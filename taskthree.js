@@ -17,7 +17,7 @@ button.addEventListener("click", function(){
         console.log(data.rates[toCurrency]);
         result.innerHTML = '';
         const node = document.createElement("p");
-        const textnode = document.createTextNode(`${data.rates[toCurrency]}`);
+        const textnode = document.createTextNode(`${data.rates[toCurrency]} ${Object.keys(data.rates)}`);
         node.append(textnode);
         result.append(node);
         
