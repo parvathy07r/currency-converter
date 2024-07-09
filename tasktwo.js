@@ -5,6 +5,7 @@ const result = document.querySelector(".result");
 buttons.forEach(function(button){
     button.addEventListener("click", function(){
         const searchQuery = input.value;
+
         if(button.innerHTML === "To INR"){
             fetch(`https://api.frankfurter.app/latest?amount=${searchQuery}&from=JPY&to=INR`)
             .then(function(response){
@@ -22,6 +23,7 @@ buttons.forEach(function(button){
                 console.log(error);
             })
         }
+
         if(button.innerHTML === "To JPY"){
             fetch(`https://api.frankfurter.app/latest?amount=${searchQuery}&from=INR&to=JPY`)
             .then(function(response){
@@ -39,7 +41,6 @@ buttons.forEach(function(button){
                 console.log(error);
             })
         } 
-
-           
+                 
 })
 })
