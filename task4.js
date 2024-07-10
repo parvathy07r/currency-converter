@@ -14,6 +14,16 @@ currencyForm.addEventListener("submit", function(event){
     
     console.log(fromCurrency, fromValue, toCurrency, toValue)
 
+    if(!Number.isInteger(Number(fromValue))){
+        result.innerHTML = ""
+        const node = document.createElement("p");
+        const textnode = document.createTextNode("Please enter a valid integer value !!!");
+        node.append(textnode);
+        result.append(node);
+        node.style.color = "red";
+        return;
+    }
+
     fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=${fromCurrency}&to=${toCurrency}`)
     .then(function(response){
         return response.json();
