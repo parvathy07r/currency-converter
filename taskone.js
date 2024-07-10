@@ -6,11 +6,15 @@ const toValue = document.querySelector(".toValue");
 
 currencyForm.addEventListener("submit", function(event){
     event.preventDefault();
+
+    // Extracting fromValue
     toValue.innerHTML = "";
     // const searchQuery = input.value;
     const form = event.target;
-    const fromValue = form["fromValue"].value;
-    if(!Number.isInteger(Number(fromValue))){
+    const fromValue = Number.parseFloat(form["fromValue"].value);
+    
+    // Validating fromValue
+    if(!fromValue){
         const node = document.createElement("p");
         const textnode = document.createTextNode("Please enter a valid integer value !!!");
         node.append(textnode);
@@ -18,6 +22,8 @@ currencyForm.addEventListener("submit", function(event){
         node.style.color = "red";
         return;
     }
+
+    // Fetching equivalent toValue
     fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=INR&to=JPY`)
     .then(function(response){
         return response.json();
@@ -30,6 +36,6 @@ currencyForm.addEventListener("submit", function(event){
         toValue.append(node);
     })
     .catch(function(error){
-        console.log(error);
+        console.error(error);
     })
 });
