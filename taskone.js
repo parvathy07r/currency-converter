@@ -1,10 +1,24 @@
-const input = document.querySelector("input");
-const button = document.querySelector("button");
-const result =  document.querySelector(".result");
+// const input = document.querySelector("input");
+const button = document.querySelector("#submit_button");
+// const result =  document.querySelector(".result");
+const currencyForm = document.querySelector("#currency_form");
+const toValue = document.querySelector(".toValue");
 
-button.addEventListener("click", function(){
-    const searchQuery = input.value;
-    fetch(`https://api.frankfurter.app/latest?amount=${searchQuery}&from=INR&to=JPY`)
+currencyForm.addEventListener("submit", function(event){
+    event.preventDefault();
+    toValue.innerHTML = "";
+    // const searchQuery = input.value;
+    const form = event.target;
+    const fromValue = form["fromValue"].value;
+    if(!Number.isInteger(Number(fromValue))){
+        const node = document.createElement("p");
+        const textnode = document.createTextNode("Please enter a valid integer value !!!");
+        node.append(textnode);
+        toValue.append(node);
+        node.style.color = "red";
+        return;
+    }
+    fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=INR&to=JPY`)
     .then(function(response){
         return response.json();
     })
@@ -13,7 +27,7 @@ button.addEventListener("click", function(){
         const node =  document.createElement("p");
         const textnode = `${data.rates.JPY} JPY`;
         node.append(textnode);
-        result.append(node);
+        toValue.append(node);
     })
     .catch(function(error){
         console.log(error);
