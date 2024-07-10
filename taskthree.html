@@ -9,34 +9,26 @@
 </head>
 
 <body>
-    <p>Currency Code:</p>
-    <ol>
-        <li>JPY - 1</li>
-        <li>INR - 2</li>
-        <li>USD - 3</li>
-        <li>CHF - 4</li>
-    </ol>
-    <div class="inputs">
-        <div class="amount">
-            <input type="text" class="given-amount">
-        </div>
-        <div class="from">
-            <label for="from">From</label>
-            <input type="text" class="fromValue">
-        </div>
-        <div class="to">
-            <label for="to">To</label>
-            <input type="text" class="toValue">
-        </div>
-    </div>
-<button>Convert</button>
-<div class="result">
-    
-</div>
-    
+    <form action="" id="currency_form">
+        <p>Currency Code:</p>
+        <ol>
+            <li>JPY - 1</li>
+            <li>INR - 2</li>
+            <li>USD - 3</li>
+            <li>CHF - 4</li>
+        </ol>
+        <label for="amount">Amount:</label>
+        <input type="text" name="givenAmount"><br><br>
+        <label for="from">From:</label>
+        <input type="text" name="fromValue"><br><br>
+        <label for="to">To</label>
+        <input type="text" name="toValue"><br><br>
+        <button id="submit_button">Convert</button>
+        <div class="result"></div>
 
+    </form>
 
-<script src="./taskthree.js"></script>
-
+    <script src="./taskthree.js"></script>
 </body>
+
 </html>
