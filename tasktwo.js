@@ -1,105 +1,63 @@
-// const input = document.querySelector("input");
-// const buttons = document.querySelectorAll("button");
-// const result = document.querySelector(".result");
-
 const currencyForm = document.querySelector("#currency_form");
 const toValue = document.querySelector(".toValue");
 const toINRButton = document.querySelector("#toINR");
 const toJPYButton = document.querySelector("#toJPY");
 
-currencyForm.addEventListener("submit", function(event){
+currencyForm.addEventListener("submit", function (event) {
+
     event.preventDefault();
 
     const form = event.target;
-    const fromValue = form["fromValue"].value;
-    const toINR = form["toINR"].value;
-    const toJPY = form["toJPY"].value;
+    const fromValue = Number.parseFloat(form["fromValue"].value);
 
-    if(!Number.isInteger(Number(fromValue))){
+    toValue.innerHTML = "";
+
+    // Validating fromValue
+    if (isNaN(fromValue)) {
+        toValue.append(getErrorMessage("Please enter a number !!!"));
+        return;
+    }
+
+    if (fromValue <= 0) {
+        toValue.append(getErrorMessage("Please enter a number greater than 0 !!!"));
+        return;
+    }
+
+    //function for displaying error message
+    function getErrorMessage(message) {
         const node = document.createElement("p");
-        const textnode = document.createTextNode("Please enter a valid integer value !!!");
-        node.append(textnode);
-        toValue.append(node);
-        node .style.color = "red";
+        node.innerHTML = message;
+        node.style.color = "red";
+        return node;
     }
 
-    if(toINRButton){
-        fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=JPY&to=INR`)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            toValue.innerHTML = "";
-            const node = document.createElement("p");
-            const textnode = `${data.rates.INR} INR`;
-            node.append(textnode);
-            toValue.append(node);
-        })
-        .catch(function(error){
-            console.log(error);
-        })
+    if (event.submitter === toINRButton) {
+        getCoversion(fromValue, 'JPY', 'INR');
+        return;
     }
 
-    if(toJPYButton){
-        fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=INR&to=JPY`)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            toValue.innerHTML = "";
-            const node = document.createElement("p");
-            const textnode = `${data.rates.JPY} JPY`;
-            node.append(textnode);
-            toValue.append(node);
-        })
-        .catch(function(error){
-            console.log(error);
-        })
+    if (event.submitter === toJPYButton) {
+        getCoversion(fromValue, 'INR', 'JPY');
+        return;
     }
 
+    //function for currency conversion
+    function getCoversion(amount, fromCurrency, toCurrency) {
+        fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                toValue.innerHTML = "";
+                const node = document.createElement("p");
+                node.innerHTML = `${data.rates[toCurrency]} ${toCurrency}`;
+                toValue.append(node);
+            })
+            .catch(function (error) {
+                console.error(error);
+            })
 
+    }
 
 })
 
-// currencyForm.forEach(function(button){
-//     button.addEventListener("click", function(){
-//         const searchQuery = input.value;
-
-//         if(button.innerHTML === "To INR"){
-//             fetch(`https://api.frankfurter.app/latest?amount=${searchQuery}&from=JPY&to=INR`)
-//             .then(function(response){
-//                 return response.json();
-//             })
-//             .then(function(data){
-//                 console.log(data.rates.INR);
-//                 result.innerHTML = '';
-//                 const node = document.createElement("p");
-//                 const textnode = `${data.rates.INR} INR`;
-//                 node.append(textnode);
-//                 result.append(node);    
-//             })
-//             .catch(function(error){
-//                 console.log(error);
-//             })
-//         }
-
-//         if(button.innerHTML === "To JPY"){
-//             fetch(`https://api.frankfurter.app/latest?amount=${searchQuery}&from=INR&to=JPY`)
-//             .then(function(response){
-//                 return response.json();
-//             })
-//             .then(function(data){
-//                 console.log(data.rates.JPY);
-//                 result.innerHTML = '';
-//                 const node = document.createElement("p");
-//                 const textnode = `${data.rates.JPY} JPY`;
-//                 node.append(textnode);
-//                 result.append(node);
-//             })
-//             .catch(function(error){
-//                 console.log(error);
-//             })
-//         } 
-                 
-// })
-// })
