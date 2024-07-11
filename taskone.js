@@ -13,7 +13,18 @@ currencyForm.addEventListener("submit", function(event){
     const fromValue = Number.parseFloat(form["fromValue"].value);
     
     // Validating fromValue
-    if(!fromValue){
+    if(isNaN(fromValue)){
+        toValue.append(getErrorMessage("Please enter a number !!!"));
+        return;
+    }
+
+    if(fromValue <= 0 ){
+        toValue.append(getErrorMessage("Please enter a number greater than 0 !!!"));
+        return;      
+    }
+
+    //function for displaying error message
+    function getErrorMessage(message){
         const node = document.createElement("p");
         node.innerHTML = message;
         node.style.color = "red";
