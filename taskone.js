@@ -6,28 +6,21 @@ currencyForm.addEventListener("submit", function(event){
 
     event.preventDefault();
 
+    // Extracting fromValue
     toValue.innerHTML = "";
 
     const form = event.target;
     const fromValue = Number.parseFloat(form["fromValue"].value);
-
-    if(isNaN(fromValue)){
-        toValue.append(getErrorMessage("Please enter a number !!!!"));
-        return;
-    }
-
-    if(fromValue <= 0){
-        toValue.append(getErrorMessage("Please enter a number greater than 0 !!!!"));
-        return;
-    }
-
-    function getErrorMessage(message){
+    
+    // Validating fromValue
+    if(!fromValue){
         const node = document.createElement("p");
         node.innerHTML = message;
         node.style.color = "red";
         return node;
     }
 
+    // Fetching equivalent toValue
     fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=INR&to=JPY`)
     .then(function(response){
         return response.json();
