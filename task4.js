@@ -11,17 +11,24 @@ currencyForm.addEventListener("submit", function(event){
     const fromValue = form["fromValue"].value
     const toCurrency = form["toCurrency"].value
     const toValue = form["toValue"]
+    result.innerHTML = "";
     
     console.log(fromCurrency, fromValue, toCurrency, toValue)
 
-    if(!Number.isInteger(Number(fromValue))){
-        result.innerHTML = ""
-        const node = document.createElement("p");
-        const textnode = document.createTextNode("Please enter a valid integer value !!!");
-        node.append(textnode);
-        result.append(node);
-        node.style.color = "red";
+    if(isNaN(fromValue)){
+        result.append(getErrorMessage("Please enter a valid number !!!"));
+    }
+
+    if (fromValue <= 0) {
+        result.append(getErrorMessage("Please enter a number greater than 0 !!!"));
         return;
+    }
+
+    function getErrorMessage(message){
+        const node = document.createElement("p");
+        node.innerHTML = message;
+        node.style.color = "red";
+        return node;
     }
 
     fetch(`https://api.frankfurter.app/latest?amount=${fromValue}&from=${fromCurrency}&to=${toCurrency}`)

@@ -11,15 +11,9 @@ currencyForm.addEventListener("submit", function(event){
 
     const form = event.target;
     const fromValue = form["fromValue"].value;
-    const regex = /[a-zA-Z]/;
     
     // Validating fromValue
     if(isNaN(fromValue)){
-        toValue.append(getErrorMessage("Please enter a number !!!"));
-        return;
-    }
-
-    if(regex.test(fromValue)){
         toValue.append(getErrorMessage("Please enter a number !!!"));
         return;
     }

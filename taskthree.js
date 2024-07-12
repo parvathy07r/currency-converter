@@ -6,13 +6,13 @@ currencyForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const form = event.target;
-    const amount = Number.parseFloat(form["givenAmount"].value);
+    const amount = form["givenAmount"].value;
     const fromValue = getCurrencyCode(form["fromValue"].value);
     const toValue = getCurrencyCode(form["toValue"].value);
+    const from = form["fromValue"].value
 
     result.innerHTML = "";
 
-    debugger;
     // Validating fromValue
     if (isNaN(amount)) {
         result.append(getErrorMessage("Please enter a number !!!"));

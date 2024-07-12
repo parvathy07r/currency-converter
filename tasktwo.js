@@ -8,7 +8,7 @@ currencyForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const form = event.target;
-    const fromValue = Number.parseFloat(form["fromValue"].value);
+    const fromValue = form["fromValue"].value;
 
     toValue.innerHTML = "";
 
