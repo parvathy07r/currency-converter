@@ -12,6 +12,7 @@ currencyForm.addEventListener("submit", function (event) {
 
     result.innerHTML = "";
 
+    debugger;
     // Validating fromValue
     if (isNaN(amount)) {
         result.append(getErrorMessage("Please enter a number !!!"));
@@ -54,7 +55,7 @@ currencyForm.addEventListener("submit", function (event) {
 
 // function to get currency codes
 function getCurrencyCode(code) {
-    switch(parseInt(code)) {
+    switch (parseInt(code)) {
         case 1:
             return "JPY";
         case 2:
